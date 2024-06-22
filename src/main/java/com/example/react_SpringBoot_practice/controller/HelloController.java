@@ -26,6 +26,7 @@ public class HelloController {
         birthStone.setMonth("2月");
         birthStone.setName("アメジスト");
         birthStone.setColor("紫");
+        //test
         return birthStone;
     }
 }
