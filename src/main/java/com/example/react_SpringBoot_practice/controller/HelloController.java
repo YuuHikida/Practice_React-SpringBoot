@@ -1,10 +1,10 @@
 package com.example.react_SpringBoot_practice.controller;
 
 //Model
-import com.example.react_SpringBoot_practice.model.BirthStone;
 import com.example.react_SpringBoot_practice.model.User;
 import com.example.react_SpringBoot_practice.repository.UserRepository;
 
+import com.example.react_SpringBoot_practice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,29 +23,28 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class HelloController {
 
-    private final UserRepository userRepository;
-
+    private final UserService userService;
 
     @Autowired
-    public HelloController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public HelloController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/api")
-    @ResponseBody       //HTTPレスポンスのボディとして使用される
-    public BirthStone getBirthStone() {
-        BirthStone birthStone = new BirthStone();
-        birthStone.setMonth("2月");
-        birthStone.setName("アメジスト");
-        birthStone.setColor("紫");
-        //test
-        return birthStone;
-    }
+//    @GetMapping("/api")
+//    @ResponseBody       //HTTPレスポンスのボディとして使用される
+//    public BirthStone getBirthStone() {
+//        BirthStone birthStone = new BirthStone();
+//        birthStone.setMonth("2月");
+//        birthStone.setName("アメジスト");
+//        birthStone.setColor("紫");
+//        //test
+//        return birthStone;
+//    }
 
-    @GetMapping("/entities")
+    @GetMapping("/userInfo")
     public List<User> getAllEntities()
     {
-        return userRepository.findAll();
+        return userService.getAllName();
     }
 
 
