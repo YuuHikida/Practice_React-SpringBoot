@@ -5,8 +5,10 @@ import axios from 'axios';
 const EntityList = () => {
   const [entities, setEntities] = useState([]);
 
+/*  依存配列を空指定しているので
+  初回のレンダリング=マウント時に一回のみ起動*/
   useEffect(() => {
-    axios.get('http://localhost:8080/entities')
+    axios.get('http://localhost:8080/userInfo')
       .then(response => {
         setEntities(response.data);
       })

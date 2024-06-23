@@ -4,13 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApiFetch } from "./components/ApiFetch"; //追加
+import { EntityList } from "./components/EntityList";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<App />
-		<ApiFetch />
-	</React.StrictMode>
+//		<ApiFetch />
+        <EntityList />
+	</React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

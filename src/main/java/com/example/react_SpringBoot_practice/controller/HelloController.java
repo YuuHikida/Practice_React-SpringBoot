@@ -42,7 +42,7 @@ public class HelloController {
         return birthStone;
     }
 
-    @GetMapping("/entities")
+    @GetMapping("/userInfo")
     public List<User> getAllEntities()
     {
         return userRepository.findAll();
