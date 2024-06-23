@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 //↓DBとクラスを呼び出すEntity
-@Entity
+//@Entity
 @Data
 @Table(name="my_table")
 public class User {
