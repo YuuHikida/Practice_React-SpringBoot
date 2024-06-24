@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Select("SELECT * FROM users my_table")
-    List<User> findAll();
+//    @Select("SELECT * FROM my_table")
+//    List<User> findAll();
+    User findById(int id);
 }
