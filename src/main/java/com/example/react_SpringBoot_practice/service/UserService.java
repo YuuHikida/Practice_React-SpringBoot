@@ -1,5 +1,6 @@
 package com.example.react_SpringBoot_practice.service;
 
+import com.example.react_SpringBoot_practice.entity.UserEntity;
 import com.example.react_SpringBoot_practice.model.User;
 import com.example.react_SpringBoot_practice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllName()
+    public UserEntity getName(int id)
     {
-        return userRepository.selectAllName();
+        return userRepository.selectAllName(id);
     }
 
 }

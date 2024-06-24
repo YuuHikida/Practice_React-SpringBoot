@@ -1,10 +1,8 @@
-drop table if exists my_table;
+drop table if exists my_database;
 
-create table my_table(
-    id integer,
-    name varchar(30);
-    primary key(id)
+create table my_database (
+  id integer,
+  name varchar(20),
+  primary key(id)
 );
 
-insert into my_table (id,name) values(1,'HIKIDA');
-insert into my_table (id,name) values(2,'TANAKA');

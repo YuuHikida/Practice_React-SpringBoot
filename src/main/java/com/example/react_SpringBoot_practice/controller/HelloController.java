@@ -1,15 +1,17 @@
 package com.example.react_SpringBoot_practice.controller;
 
 //Model
+import com.example.react_SpringBoot_practice.dto.UserResponse;
+import com.example.react_SpringBoot_practice.entity.Item;
+import com.example.react_SpringBoot_practice.entity.UserEntity;
+import com.example.react_SpringBoot_practice.mapper.ItemMapper;
 import com.example.react_SpringBoot_practice.model.User;
 import com.example.react_SpringBoot_practice.repository.UserRepository;
 
 import com.example.react_SpringBoot_practice.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class HelloController {
 
     private final UserService userService;
 
-    @Autowired
+
     public HelloController(UserService userService) {
         this.userService = userService;
     }
@@ -40,16 +42,21 @@ public class HelloController {
 //        //test
 //        return birthStone;
 //    }
+//    @GetMapping("/{id}")
+//    public UserResponse findById(@PathVariable int id)
+//    {   // DBからidをキーにデータを取得
+//        UserEntity userEntity =  userService.getAllName(id);
+//        // Responseにデータをコピーしてreturn;
+//        UserResponse userResponse = new UserResponse();
+//        // 2つのオブジェクト間でプロパティの値をコピーする為に利用する
+//        BeanUtils.copyProperties( userEntity, userResponse );
+//        return userResponse;
+//    }
 
-    @GetMapping("/userInfo")
-    public List<User> getAllEntities()
+    @GetMapping("/{id}")
+    public UserEntity get(@RequestParam int id)
     {
-        return userService.getAllName();
+        return userService.getName(id);
     }
-
-
-
-
-
 
 }

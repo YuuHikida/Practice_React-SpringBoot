@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.example.springbootdemo.mapper.USerMapper">
-    <select id="findById" resultType="com.example.react_SpringBoot_practice.entity.User">
-        select i.id , i.name from my_table i where i.id  = #{id}
-    </select>
-</mapper>
