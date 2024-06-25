@@ -10,9 +10,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-//    @Select("SELECT * FROM my_table")
-//    List<User> findAll();
-    //User findById(int id);
+    /*
+    UserEntity selectAll..の型でUserEntityを指定することで
+    勝手にマッピングしてくれ、UserEntity型を返す
+     */
     @Select("SELECT * FROM my_table WHERE id = #{id}")
     UserEntity selectAllName(int id);
 }

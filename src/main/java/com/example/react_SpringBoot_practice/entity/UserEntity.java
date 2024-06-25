@@ -14,6 +14,6 @@ import lombok.Data;
 
 @Data
 public class UserEntity {
-      int id;
-      String name;
+      private int id;
+      private String name;
 }

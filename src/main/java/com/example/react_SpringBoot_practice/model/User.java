@@ -21,7 +21,7 @@ DTO（データ転送オブジェクト）としても使われます
 
 @Data
 public class User {
-    Integer id;
-    String name;
+    private Integer id;
+    private String name;
     // エンティティにはない追加のフィールドもできやす
 }

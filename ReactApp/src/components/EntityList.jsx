@@ -8,7 +8,7 @@ const EntityList = () => {
 /*  依存配列を空指定しているので
   初回のレンダリング=マウント時に一回のみ起動*/
   useEffect(() => {
-    axios.get('http://localhost:8080/userInfo')
+    axios.get('http://localhost:8080/api/{id}')
       .then(response => {
         setEntities(response.data);
       })

@@ -4,13 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApiFetch } from "./components/ApiFetch"; //追加
-import { EntityList } from "./components/EntityList";
+import  EntityList  from "./components/EntityList";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<App />
-//		<ApiFetch />
+		<ApiFetch />
         <EntityList />
 	</React.StrictMode>,
 );
