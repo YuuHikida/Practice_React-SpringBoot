@@ -22,6 +22,7 @@ import java.util.List;
 */
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")//すべてのエンドポイントを定義する
 public class HelloController {
 
     private final UserService userService;
@@ -32,7 +33,7 @@ public class HelloController {
     }
 
 
-    @GetMapping("/api")
+    @GetMapping("")
     @ResponseBody       //HTTPレスポンスのボディとして使用される
     public BirthStone getBirthStone() {
         BirthStone birthStone = new BirthStone();
@@ -43,9 +44,11 @@ public class HelloController {
         return birthStone;
     }
 
-    @GetMapping("/api/{id}")
+    //@RequestParamは /api/xxx ? id =123 などを受け取る
+    //@PathVariableは /api/123   などの123を受け取る
+    @GetMapping("/{id}")
     @ResponseBody
-    public User get(@RequestParam int id)
+    public User get(@PathVariable("id") int id)
     {
         User user = new User();
         UserEntity userEntity = userService.getName(id);

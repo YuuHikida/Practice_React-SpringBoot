@@ -1,6 +1,6 @@
-drop table if exists my_database;
+drop table if exists my_table;
 
-create table my_database (
+create table my_table (
   id integer,
   name varchar(20),
   primary key(id)
