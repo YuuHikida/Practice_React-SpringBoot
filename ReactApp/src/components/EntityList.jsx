@@ -1,36 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+  useParams,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 
-const EntityList = ({ id }) => {
-  const [entity, setEntity] = useState(null);
 
- useEffect(() => {
-   const fetchData = async () => {
-     try {
-       const response = await axios.get(`http://localhost:8080/api/${id}`);
-       setEntity(response.data);
-     } catch (error) {
-       console.error('There was an error fetching the data!', error.message);
-     }
-   };
+const UserComponent = ({ id }) => {
+  const [user, setUser] = useState(null);
 
-   fetchData();
- }, [id]);
-    console.log(entity.id);
-    console.log(entity.name);
+  const location = useLocation();
+  const nowPagePath = location.pathname;
+  // ↑で現在のパスを取得する
+  console.log( nowPagePath );
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/`);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching the user data:", error);
+      }
+    };
+    fetchUser();
+  }, [id]);
+
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      <h1>Entity Details</h1>
-      {entity ? (
-        <div>
-          <p>ID: {entity.id}</p>
-          <p>Name: {entity.name}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      <h1>User Information</h1>
+      <p>ID: {user.id}</p>
+      <p>Name: {user.name}</p>
     </div>
   );
 };
 
-export default EntityList;
+export default UserComponent;
