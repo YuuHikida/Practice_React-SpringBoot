@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  useParams,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
 
 
 const UserComponent = ({ id }) => {
   const [user, setUser] = useState(null);
 
-  const location = useLocation();
-  const nowPagePath = location.pathname;
-  // ↑で現在のパスを取得する
-  console.log( nowPagePath );
   useEffect(() => {
     const fetchUser = async () => {
       try {
