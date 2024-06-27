@@ -47,7 +47,6 @@ public class HelloController {
     //@RequestParamは /api/xxx ? id =123 などを受け取る
     //@PathVariableは /api/123   などの123を受け取る
     @GetMapping("/{id}")
-    @ResponseBody
     public User get(@PathVariable("id") int id)
     {
         User user = new User();
