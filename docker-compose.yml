@@ -1,0 +1,90 @@
+version: '3.8'  # Docker Composeのバージョンを指定します
+
+services:
+  db:  # MySQLサービスの設定開始
+    image: mysql:8.3.0  # 使用するMySQLのイメージを指定します
+    container_name: mysql  # コンテナの名前を指定します
+    environment:  # 環境変数を設定します
+      MYSQL_ROOT_PASSWORD: 1121  # MySQLのrootユーザーのパスワードを指定
+      MYSQL_DATABASE: my_database  # 作成するデータベースの名前
+      MYSQL_USER: appp  # 作成するデータベースユーザーの名前
+      MYSQL_PASSWORD: appp  # データベースユーザーのパスワードを指定
+    ports:
+      - "3306:3306"  # ホストのポート3306をコンテナのポート3306にマッピングします
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./src/main/resources:/docker-entrypoint-initdb.d # 初期化スクリプトを配置するディレクトリをマウント
+  backend:  # Spring Bootアプリケーション（バックエンド）の設定開始
+    build:
+      context: .  # `docker-compose.yml` から見たビルドコンテキストを指定します
+      dockerfile: src/Dockerfile  # `docker-compose.yml` から見たDockerfileの相対パスを指定します
+    container_name: springBoot  # コンテナの名前を指定します
+    ports:
+      - "8080:8080"  # ホストのポート8080をコンテナのポート8080にマッピングします
+    # - "ホスト側のポート:コンテナ側のポート"
+    # - "ホスト側のポート:DockerFileのEXPOSE"
+    depends_on:
+      - db  # dbサービスが起動している必要があります
+    environment:  # 環境変数を設定します
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/my_database  # データソースのURLを指定します（dbサービスを指します）
+      SPRING_DATASOURCE_USERNAME: appp  # データベースユーザーの名前を指定します
+      SPRING_DATASOURCE_PASSWORD: appp  # データベースユーザーのパスワードを指定します
+
+  frontend:  # Reactアプリケーション（フロントエンド）の設定開始
+    build:
+      context: ./reactapp  # `docker-compose.yml` から見たビルドコンテキスト
+      dockerfile: Dockerfile
+    container_name: react  # コンテナの名前を指定します
+    ports:
+      - "3000:80"  # ホストのポート3000をコンテナのポート3000にマッピングします
+      # - "ホスト側のポート:コンテナ側のポート"
+    depends_on:
+      - backend  # backendサービスが起動している必要があります
+
+volumes:
+  db_data:  # MySQLデータの永続化に使うボリュームを定義します
+
+
+#version: '3.8'
+#
+#services:
+#  mysql:
+#    image: mysql:8.3.0
+#    container_name: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD:
+#      MYSQL_DATABASE: my_database
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD:
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - src/main/resources/schema.sql
+#    networks:
+#      - mynetwork
+#
+#  backend:
+#    build: ./backend
+#    container_name: backend
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydatabase
+#      SPRING_DATASOURCE_USERNAME: user
+#      SPRING_DATASOURCE_PASSWORD: password
+#    depends_on:
+#      - mysql
+#    networks:
+#      - mynetwork
+#
+#  frontend:
+#    build: ./frontend
+#    container_name: frontend
+#    ports:
+#      - "80:80"
+#    networks:
+#      - mynetwork
+#
+#networks:
+#  mynetwork:
+#    driver: bridge
