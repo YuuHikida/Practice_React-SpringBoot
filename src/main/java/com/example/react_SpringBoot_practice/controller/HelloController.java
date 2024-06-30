@@ -21,7 +21,6 @@ import java.util.List;
  == CORSを制御している
 */
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api")//すべてのエンドポイントを定義する
 public class HelloController {
 

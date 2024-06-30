@@ -15,7 +15,7 @@ function AppReactLogo() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React!!!!あ+++!!!!!!!!!!!
         </a>
       </header>
     </div>
