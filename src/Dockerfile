@@ -2,15 +2,13 @@
 FROM maven:3.8.5-openjdk-17
 # 作業ディレクトリの設定
 WORKDIR /app
-
 # ソースコードをコンテナにコピー
 COPY . /app
 
 # Mavenを使ってビルドする場合
-RUN mvn clean package
+# Mavenのビルドコマンドの修正例
+RUN mvn -f ../pom.xml clean package
 
-# JARファイルをコンテナにコピー
-#COPY ../target/react_SpringBoot_practice-0.0.1-SNAPSHOT.jar app.jar
 
 # コンテナ内でのポート設定
 EXPOSE 8080
