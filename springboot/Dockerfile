@@ -1,4 +1,3 @@
-# ベースイメージ
 FROM openjdk:17-jdk-slim
 
 # Mavenをインストール
@@ -17,7 +16,7 @@ COPY src /app/src
 COPY src/main/resources/init.sql /app/resources/init.sql
 
 # Mavenビルド（テストをスキップ）
-RUN mvn clean package -DskipTests -X
-
+RUN mvn  package -DskipTests -X
+//test
 # 実行コマンド
 CMD ["java", "-jar", "target/react_SpringBoot_practice.jar"]
