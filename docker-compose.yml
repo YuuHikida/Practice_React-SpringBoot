@@ -1,17 +1,15 @@
 version: '3.9'
 
 services:
-  mysql-container:
-    image: mysql:8.0
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 1121
       MYSQL_DATABASE: my_database
       MYSQL_USER: appp
       MYSQL_PASSWORD: appp
-    ports:
-      - "3306:3306"
-    volumes:
-    - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql  # プロジェクトのルートディレクトリにあるinit.sqlをマウントします
 
   springboot:
     build:
@@ -19,19 +17,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/my_database
-      SPRING_DATASOURCE_USERNAME: appp
-      SPRING_DATASOURCE_PASSWORD: appp
     depends_on:
       - mysql
-
 #  react:  # Reactアプリケーション（フロントエンド）の設定開始
 #    build:
 #      context: ./reactapp  # `Backup-docker-compose.yml` から見たビルドコンテキスト
 #      dockerfile: Dockerfile
 #    ports:
-#      - "3000:80"  # ホストのポート3000をコンテナのポート3000にマッピングします
+#      - "3000:80"  # ホストのポート3000をコンテナのポート3000にマッピングしまっs
 #      # - "ホスト側のポート:コンテナ側のポート"
 #    volumes:
 #      - ./reactapp/src:/usr/share/nginx/html/src
