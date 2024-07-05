@@ -10,6 +10,8 @@ services:
       MYSQL_DATABASE: my_database
       MYSQL_USER: appp
       MYSQL_PASSWORD: appp
+    volumes:
+      - ./src/main/resource/init.sql:/docker-entrypoint-initdb.d
 
   springboot:
     build:
