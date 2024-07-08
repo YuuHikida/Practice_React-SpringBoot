@@ -21,17 +21,20 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
-#  react:  # Reactアプリケーション（フロントエンド）の設定開始
-#    build:
-#      context: ./reactapp  # `Backup-docker-compose.yml` から見たビルドコンテキスト
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:80"  # ホストのポート3000をコンテナのポート3000にマッピングしまっs
-#      # - "ホスト側のポート:コンテナ側のポート"
-#    volumes:
-#      - ./reactapp/src:/usr/share/nginx/html/src
-#    depends_on:
-#      - springBoot-app  # backendサービスが起動している必要があります
+
+# あとはここにreact の「npm start」を入れられるなら完成？
+
+  react:  # Reactアプリケーション（フロントエンド）の設定開始
+    build:
+      context: ./reactapp  # `Backup-docker-compose.yml` から見たビルドコンテキスト
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"  # ホストのポート3000をコンテナのポート3000にマッピングしまっs
+      # - "ホスト側のポート:コンテナ側のポート"
+    volumes:
+      - ./reactapp/src:/usr/share/nginx/html/src
+    depends_on:
+      - springboot  # backendサービスが起動している必要があります
 volumes:
   db_data:
 

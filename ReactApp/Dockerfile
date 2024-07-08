@@ -1,9 +1,19 @@
-FROM maven:3.6.3-jdk-17 AS builder
-WORKDIR /tmp
-COPY ./src ./src
-COPY ./pom.xml .
-RUN mvn package
-FROM adoptopenjdk/openjdk17:debianslim-jre
-COPY --from=builder /tmp/target/app.jar /app/app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# reactapp/Dockerfile
+FROM node:16-alpine AS build
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
