@@ -1,5 +1,7 @@
-git Graph QL使い方:
+ Graph QL使い方:
 https://docs.github.com/ja/graphql/guides/using-the-explorer
+
+参考:https://zenn.dev/kawarimidoll/articles/b573f617a51c0b
 
 今後作業の流れ
 
