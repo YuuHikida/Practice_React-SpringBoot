@@ -10,3 +10,5 @@ https://docs.github.com/ja/graphql/guides/using-the-explorer
 2.画面に出力、数値でくる(はず)jなのでreactで整形
 
 3.できることなら自分のurlを入力することで誰でも見れるようにする
+
+test    S
