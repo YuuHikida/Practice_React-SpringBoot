@@ -56,4 +56,12 @@ public class HelloController {
 
     }
 
+    //暫定テスト用
+    @GetMapping("/test")
+    public String moji()
+    {
+        String answer = "KON^^";
+        return answer;
+    }
+
 }
