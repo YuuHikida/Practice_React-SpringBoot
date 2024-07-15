@@ -16,14 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
-//import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.ExpectedCount.times;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /*MEMO*/
@@ -67,18 +62,15 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void testGetBirthStrone() throws Exception
-    {
+    public void testGetBirthStone() throws Exception {
         // リクエストの送信とレスポンスの検証
         mockMvc.perform(get("/api"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                //jsonPathはJSONレスポンスの特定フィールド値を確認できる
                 .andExpect(jsonPath("$.month").value("2月"))
                 .andExpect(jsonPath("$.name").value("アメジスト"))
                 .andExpect(jsonPath("$.color").value("紫"));
     }
-
 
 }
 
