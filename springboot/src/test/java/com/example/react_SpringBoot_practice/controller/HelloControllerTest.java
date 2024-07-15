@@ -5,9 +5,12 @@ import com.example.react_SpringBoot_practice.model.BirthStone;
 import com.example.react_SpringBoot_practice.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -18,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.ExpectedCount.times;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,25 +67,36 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void testMoji() throws Exception
+    public void testGetBirthStrone() throws Exception
     {
-        mockMvc.perform(get("/test"))
-                .andExpect(status().isOk());
+        // リクエストの送信とレスポンスの検証
+        mockMvc.perform(get("/api"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                //jsonPathはJSONレスポンスの特定フィールド値を確認できる
+                .andExpect(jsonPath("$.month").value("2月"))
+                .andExpect(jsonPath("$.name").value("アメジスト"))
+                .andExpect(jsonPath("$.color").value("紫"));
     }
 
-//    @Test
-//    public void testGetUserById() throws Exception {
-//        // モックの振る舞いを定義
-//        when(userService.getName(1)).thenReturn(userEntity);
-//
-//        // エンドポイントを呼び出して検証
-//        mockMvc.perform(get("/api/1"))
-//                .andExpect(status().isOk())
-//                .andExpect((ResultMatcher) jsonPath("$.id").value(1))
-//                .andExpect((ResultMatcher) jsonPath("$.name").value("Test User"));
-//
-//        // モックが期待通りに呼び出されたか確認
-//        verify(userService, times(1)).getName(1);
-//    }
 
 }
+
+
+    /*  ↓　Mockitoを使ってクラスのインスタンスを使ってテスト(Httpリクエストテストはしていない)
+
+    @InjectMocks
+    private HelloController helloController;
+
+    public HelloControllerTest()
+    {
+        MockitoAnnotations.openMocks(this);
+    }
+    @Test
+    public void testMoji()
+    {
+        String result = helloController.moji();
+
+        assertEquals("KON^^",result);
+    }
+     */

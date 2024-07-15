@@ -57,7 +57,7 @@ public class HelloController {
     }
 
     //暫定テスト用
-    @GetMapping("/test")
+    @RequestMapping(path = "/test", method = RequestMethod.GET)
     public String moji()
     {
         String answer = "KON^^";
