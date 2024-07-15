@@ -5,18 +5,16 @@ import com.example.react_SpringBoot_practice.model.BirthStone;
 import com.example.react_SpringBoot_practice.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,7 +37,8 @@ assertEquals(a,b)	aとbが等しい（equal）ことをテストする。
 
 //↓HelloControlerクラステストを実行
 @WebMvcTest(HelloController.class)
-public class HelloControllerTest {
+public class HelloControllerTest
+{
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,11 +52,11 @@ public class HelloControllerTest {
 
     //↓テストメソッドの実行前に毎回実行される
     @BeforeEach
-    public  void beforeEach()
+    public void beforeEach()
     {
         userEntity = new UserEntity();
         userEntity.setId(1);
-        userEntity.setName("kon");
+        userEntity.setName("TANAKA TARO");
 //        mockMvc = MockMvcBuilders.standaloneSetup(new HelloController("/api")).build();
     }
 
@@ -72,8 +71,20 @@ public class HelloControllerTest {
                 .andExpect(jsonPath("$.color").value("紫"));
     }
 
-}
+    @Test
+    public  void testGetUser()throws Exception {
+        //モック定義
+        when(userService.getName(1)).thenReturn(userEntity);
 
+        // リクエストの送信とレスポンスの検証
+        mockMvc.perform(get("/api/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("TANAKA TARO"));
+    }
+
+}
 
     /*  ↓　Mockitoを使ってクラスのインスタンスを使ってテスト(Httpリクエストテストはしていない)
 
